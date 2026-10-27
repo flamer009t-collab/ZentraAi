@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#090d19">
+<meta name="description" content="ZentraAI — a smooth workspace for creators and ideas.">
+<title>ZentraAI — Your AI Workspace</title>
+<style>
+:root{--bg:#090d19;--surface:#11182a;--surface2:#151f34;--line:#26334b;--text:#f5f7ff;--muted:#a2aec5;--purple:#8274ff;--cyan:#55e1d6;--good:#9af0cb;--r:18px}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:86px}body{margin:0;background:radial-gradient(ellipse at 80% -12%,#30265e 0,transparent 36%),var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input,textarea,select{font:inherit}button{cursor:pointer;color:inherit}.shell{max-width:1120px;width:calc(100% - 28px);margin:auto}
+header{position:sticky;top:0;z-index:10;background:#090d19ed;backdrop-filter:blur(18px);border-bottom:1px solid #ffffff12;padding-top:env(safe-area-inset-top)}.nav{height:66px;display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{display:flex;align-items:center;gap:10px;font-size:19px;font-weight:850;letter-spacing:-.7px}.mark{width:38px;height:38px;display:grid;place-items:center;border-radius:13px;background:linear-gradient(140deg,var(--purple),var(--cyan));box-shadow:0 6px 22px #8274ff3d;font-size:20px}.brand em{font-style:normal;color:var(--cyan)}.pill{border:1px solid #55e1d64a;color:var(--good);font-size:11px;font-weight:750;padding:5px 9px;border-radius:99px;white-space:nowrap}
+.hero{padding:36px 0 22px}.kicker{color:var(--cyan);text-transform:uppercase;font-size:11px;font-weight:850;letter-spacing:2px}.hero h1{font-size:clamp(37px,8vw,66px);line-height:1.04;letter-spacing:-2.7px;margin:12px 0}.shine{background:linear-gradient(100deg,#fff,#bcb5ff 52%,#72eee2);background-clip:text;-webkit-background-clip:text;color:transparent}.hero p{color:var(--muted);max-width:600px;margin:0;font-size:15px}.hero-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:19px}.btn{border:1px solid var(--line);background:#18233a;border-radius:12px;padding:11px 15px;font-weight:750;transition:transform .16s,border-color .16s,opacity .16s}.btn.primary{background:linear-gradient(115deg,#8274ff,#478fd9);border:0}.btn:active,.tool:active{transform:scale(.98)}.btn:focus-visible,.tool:focus-visible,.chip:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+.mini-stats{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px}.mini-stats span{font-size:12px;color:#c7d1e7;border:1px solid #ffffff12;background:#ffffff05;border-radius:99px;padding:7px 10px}
+.section{margin:25px 0 30px}.section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:14px}.section-head h2{margin:0;font-size:22px;letter-spacing:-.6px}.section-head p{margin:4px 0 0;color:var(--muted);font-size:13px}.search{width:100%;border:1px solid var(--line);border-radius:12px;background:#0d1424;color:var(--text);padding:12px 13px;margin-bottom:12px;outline:none}.search:focus{border-color:var(--purple)}.filters{display:flex;gap:7px;overflow:auto;padding:1px 1px 11px;scrollbar-width:none}.filters::-webkit-scrollbar{display:none}.chip{border:1px solid var(--line);background:#111a2c;color:#d1daed;border-radius:99px;padding:8px 12px;font-size:12px;white-space:nowrap}.chip.active{background:#8274ff24;border-color:#8274ff;color:#e6e2ff}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.tool{position:relative;min-width:0;text-align:left;border:1px solid var(--line);background:linear-gradient(145deg,#151f34,#101728);border-radius:17px;padding:15px 13px;min-height:164px;display:flex;flex-direction:column;align-items:flex-start;transition:transform .18s,border-color .18s,background .18s}.tool:hover{border-color:#8274ff99;transform:translateY(-2px)}.tool .ico{height:42px;width:42px;border-radius:13px;display:grid;place-items:center;background:#ffffff0c;font-size:21px;margin-bottom:12px}.tool h3{font-size:15px;margin:0 0 5px}.tool p{color:var(--muted);font-size:12px;line-height:1.45;margin:0}.tool .open{color:#bdb7ff;font-size:10px;letter-spacing:.7px;font-weight:850;margin-top:auto;padding-top:12px}.badge{position:absolute;top:12px;right:10px;color:#9ff0d0;background:#4de0b512;border:1px solid #4de0b529;border-radius:6px;padding:3px 5px;font-size:9px;font-weight:800}.hidden{display:none!important}
+.workspace{margin:26px 0 28px;border:1px solid #394260;border-radius:22px;overflow:hidden;background:linear-gradient(145deg,#151e32,#0e1524);box-shadow:0 20px 60px #00000020}.work-top{padding:17px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:10px}.work-title{display:flex;align-items:center;gap:10px;min-width:0}.work-icon{width:40px;height:40px;border-radius:13px;background:#8274ff20;display:grid;place-items:center;font-size:21px;flex-shrink:0}.work-title h2{font-size:18px;margin:0}.work-title p{font-size:12px;color:var(--muted);margin:2px 0 0}.small-btn{border:1px solid var(--line);background:#11192a;border-radius:10px;padding:8px 10px;font-size:12px;font-weight:700}.work-body{padding:16px}.label{display:block;font-weight:750;font-size:13px;margin-bottom:7px}.field{width:100%;background:#090f1d;color:var(--text);border:1px solid #2a3852;border-radius:13px;padding:13px;outline:none}.field:focus{border-color:var(--purple);box-shadow:0 0 0 3px #8274ff1c}textarea.field{min-height:115px;resize:vertical}.select{margin:10px 0 0}.prompt-chips{display:flex;gap:7px;flex-wrap:wrap;margin:11px 0}.prompt-chips .chip{white-space:normal;text-align:left}.runrow{display:flex;gap:8px;flex-wrap:wrap}.runrow .btn{flex:1;min-width:140px}.result{white-space:pre-wrap;overflow-wrap:anywhere;white-space:pre-wrap;overflow-wrap:anywhere;min-height:80px;margin-top:13px;padding:14px;border:1px dashed #3a4964;background:#090f1d;border-radius:13px;color:#e0e7f8;font-size:13px}.result.empty{color:#8794ad;display:flex;align-items:center}.micro{font-size:11px;color:var(--muted);margin-top:8px}.callout{margin:14px 0 0;padding:12px;border-radius:12px;background:#8274ff10;border:1px solid #8274ff32;color:#d4d0ff;font-size:12px}.callout strong{color:#fff}.bottom-grid{display:grid;grid-template-columns:1fr;gap:10px;margin:18px 0 34px}.info{border:1px solid var(--line);border-radius:15px;background:#ffffff05;padding:15px}.info h3{font-size:14px;margin:0 0 5px}.info p{font-size:12px;color:var(--muted);margin:0}.footer{border-top:1px solid #ffffff12;padding:22px 0 calc(25px + env(safe-area-inset-bottom));color:var(--muted);font-size:11px}.footer-in{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.toast{position:fixed;left:50%;bottom:20px;transform:translate(-50%,20px);opacity:0;pointer-events:none;z-index:20;background:#e8eaff;color:#17162b;padding:10px 15px;border-radius:12px;font-weight:750;font-size:13px;box-shadow:0 8px 30px #0005;transition:.2s}.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(min-width:650px){.shell{width:calc(100% - 48px)}.hero{padding-top:60px}.grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.tool{min-height:180px;padding:17px}.work-body{padding:22px}.bottom-grid{grid-template-columns:repeat(3,1fr)}.section{margin-top:32px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+
+/* ZentraAI Signature UI — premium hybrid redesign */
+:root{
+ --bg:#070b14;--surface:#101827;--surface2:#151f31;--line:#26364c;
+ --text:#f6f8ff;--muted:#9baac1;--purple:#8b7cff;--cyan:#67f0df;
+ --good:#a8f4d4;--r:20px
+}
+body{
+ background:
+ radial-gradient(ellipse at 85% -5%,rgba(104,76,255,.23),transparent 34%),
+ radial-gradient(ellipse at 0% 35%,rgba(34,211,238,.08),transparent 32%),
+ var(--bg);
+ letter-spacing:-.12px
+}
+header{background:rgba(7,11,20,.88);border-bottom:1px solid rgba(139,124,255,.16)}
+.nav{height:72px}
+.mark{width:42px;height:42px;border-radius:15px;background:linear-gradient(135deg,#9c83ff 0%,#657cff 48%,#59e7df 100%);box-shadow:0 0 28px rgba(119,105,255,.3);font-weight:900}
+.brand{font-size:20px;letter-spacing:-.8px}
+.brand em{background:linear-gradient(90deg,#a99cff,#67f0df);background-clip:text;-webkit-background-clip:text;color:transparent}
+.pill{background:rgba(103,240,223,.06);border-color:rgba(103,240,223,.24);color:#a9f5e4;padding:7px 11px}
+.hero{
+ position:relative;isolation:isolate;overflow:hidden;
+ margin-top:20px;padding:clamp(28px,7vw,62px) clamp(18px,5vw,46px);
+ border:1px solid rgba(151,165,255,.19);border-radius:28px;
+ background:linear-gradient(130deg,rgba(22,30,52,.96),rgba(10,16,29,.84) 62%,rgba(35,27,69,.74));
+ box-shadow:0 24px 80px rgba(0,0,0,.22)
+}
+.hero:after{
+ content:"";position:absolute;z-index:-1;width:260px;height:260px;right:-75px;top:-95px;
+ border-radius:50%;border:1px solid rgba(103,240,223,.14);
+ box-shadow:0 0 0 28px rgba(139,124,255,.035),0 0 0 58px rgba(139,124,255,.025),0 0 80px rgba(104,76,255,.16)
+}
+.kicker{display:inline-flex;align-items:center;gap:8px;color:#8cf1e5;letter-spacing:1.8px;font-size:10px}
+.kicker:before{content:"";display:inline-block;width:19px;height:2px;border-radius:2px;background:linear-gradient(90deg,#9b8cff,#67f0df)}
+.hero h1{font-size:clamp(38px,8.7vw,68px);line-height:1.02;letter-spacing:-3px;margin:17px 0 15px;max-width:750px}
+.shine{background:linear-gradient(100deg,#fff 5%,#bdb5ff 48%,#6bf0e0 95%);background-clip:text;-webkit-background-clip:text;color:transparent}
+.hero p{max-width:590px;font-size:clamp(14px,2vw,16px);line-height:1.75;color:#aebbd0}
+.btn{border-radius:13px;padding:12px 16px;transition:transform .18s,filter .18s,border-color .18s;min-height:45px}
+.btn.primary{background:linear-gradient(110deg,#8b79ff,#5a8cf5 60%,#50cfc9);box-shadow:0 8px 24px rgba(105,104,255,.2);color:white}
+.btn:hover{filter:brightness(1.09);border-color:#8274ff88}
+.mini-stats span{background:rgba(255,255,255,.035);border-color:rgba(255,255,255,.09);padding:8px 11px}
+.section{margin:34px 0}
+.section-head h2{font-size:clamp(22px,4vw,28px);letter-spacing:-1px}
+.section-head p{font-size:13px}
+.search{border-radius:15px;padding:14px 15px;background:rgba(13,20,36,.92);border-color:#2a3850}
+.filters{padding-bottom:13px}
+.chip{border-radius:11px;padding:9px 13px;background:#111a2a;border-color:#26344a}
+.chip.active{background:linear-gradient(120deg,rgba(139,124,255,.18),rgba(103,240,223,.08));border-color:#8b7cff;color:#e8e5ff}
+.grid{gap:12px}
+.tool{
+ border-radius:19px;padding:16px;min-height:174px;
+ background:linear-gradient(145deg,rgba(22,32,52,.97),rgba(13,20,34,.97));
+ border-color:rgba(135,153,189,.18);
+ box-shadow:inset 0 1px rgba(255,255,255,.035);
+}
+.tool:hover{border-color:rgba(139,124,255,.75);background:linear-gradient(145deg,#1b2540,#10192b);box-shadow:0 14px 32px rgba(0,0,0,.18)}
+.tool .ico{background:linear-gradient(140deg,rgba(139,124,255,.18),rgba(103,240,223,.08));border:1px solid rgba(139,124,255,.15);height:44px;width:44px;border-radius:14px}
+.tool h3{font-size:15px;letter-spacing:-.3px}
+.tool p{font-size:12px;line-height:1.6}
+.tool .open{font-size:10px;letter-spacing:1px;color:#a9a1ff}
+.badge{border-radius:99px;background:rgba(103,240,223,.07);border-color:rgba(103,240,223,.16)}
+.workspace{
+ margin:34px 0;border-radius:24px;border-color:rgba(139,124,255,.28);
+ background:linear-gradient(145deg,rgba(19,28,47,.98),rgba(9,15,27,.98));
+ box-shadow:0 25px 70px rgba(0,0,0,.2)
+}
+.work-top{padding:18px;background:linear-gradient(90deg,rgba(139,124,255,.08),transparent);border-bottom-color:rgba(139,153,190,.16)}
+.work-icon{background:linear-gradient(135deg,rgba(139,124,255,.23),rgba(103,240,223,.1));border:1px solid rgba(139,124,255,.2)}
+.work-title h2{letter-spacing:-.5px}
+.small-btn{border-radius:11px}
+.work-body{padding:clamp(15px,4vw,24px)}
+.field{border-radius:14px;background:#090f1b;border-color:#2a3851;line-height:1.65}
+textarea.field{min-height:128px}
+.field:focus{border-color:#8b7cff;box-shadow:0 0 0 3px rgba(139,124,255,.14)}
+.prompt-chips .chip{border-radius:99px;background:rgba(255,255,255,.025);white-space:normal}
+.result{white-space:pre-wrap;overflow-wrap:anywhere;border-style:solid;border-color:rgba(135,153,189,.19);background:#080e19;border-radius:15px;line-height:1.8;font-size:13px}
+.callout{background:linear-gradient(120deg,rgba(139,124,255,.09),rgba(103,240,223,.035));border-color:rgba(139,124,255,.2);border-radius:15px;line-height:1.7}
+.info{border-radius:17px;background:linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.012));border-color:rgba(135,153,189,.17)}
+.info h3{font-size:14px}
+.footer{border-top-color:rgba(255,255,255,.09)}
+.toast{background:linear-gradient(100deg,#dcd6ff,#aaf8ee);box-shadow:0 12px 35px rgba(0,0,0,.32)}
+@media(min-width:650px){
+ .hero{margin-top:28px}
+ .grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+ .tool{min-height:190px;padding:18px}
+}
+@media(max-width:390px){
+ .shell{width:calc(100% - 22px)}
+ .hero{padding:27px 17px;border-radius:23px}
+ .hero h1{letter-spacing:-2.1px}
+ .hero-actions .btn{flex:1}
+ .pill{font-size:10px}
+}
+
+
+/* Redesigned result/output panel */
+.output-panel{
+ margin-top:18px;border:1px solid rgba(139,124,255,.27);border-radius:19px;
+ overflow:hidden;background:linear-gradient(145deg,rgba(14,22,38,.98),rgba(8,14,25,.98));
+ box-shadow:0 16px 38px rgba(0,0,0,.18),inset 0 1px rgba(255,255,255,.035)
+}
+.output-head{
+ display:flex;align-items:center;justify-content:space-between;gap:12px;
+ padding:15px 16px;border-bottom:1px solid rgba(139,153,190,.14);
+ background:linear-gradient(100deg,rgba(139,124,255,.10),rgba(103,240,223,.035),transparent)
+}
+.output-label{display:flex;align-items:center;gap:11px;min-width:0}
+.output-spark{
+ width:36px;height:36px;display:grid;place-items:center;flex-shrink:0;
+ border-radius:12px;background:linear-gradient(135deg,rgba(139,124,255,.22),rgba(103,240,223,.11));
+ border:1px solid rgba(139,124,255,.25);color:#c4bcff;font-size:19px
+}
+.output-label strong{display:block;color:#f6f8ff;font-size:14px;letter-spacing:-.2px}
+.output-label small{display:block;color:#8292ad;font-size:9px;letter-spacing:1.25px;margin-top:3px}
+.output-status{font-size:10px;color:#9aecd9;border:1px solid rgba(103,240,223,.18);background:rgba(103,240,223,.055);padding:6px 9px;border-radius:99px;white-space:nowrap}
+.output-panel .result{
+ margin:0;padding:19px 17px;min-height:150px;border:0;border-radius:0;
+ background:transparent;color:#dbe5f7;font-size:14px;line-height:1.85;
+ white-space:pre-wrap;overflow-wrap:anywhere
+}
+.output-panel .result.empty{display:flex;align-items:center;color:#71819a;font-size:13px;line-height:1.8}
+.output-foot{
+ display:flex;justify-content:space-between;gap:10px;padding:10px 16px;
+ border-top:1px solid rgba(139,153,190,.11);color:#71819a;font-size:10px
+}
+@media(max-width:390px){
+ .output-head{padding:13px 12px}.output-panel .result{padding:16px 13px}
+ .output-status{font-size:9px;padding:5px 7px}.output-foot{padding:9px 12px}
+}
+
+
+/* Two-column creator workspace: actions on the left, output on the right */
+.workspace-layout{
+ display:grid;
+ grid-template-columns:minmax(0,1fr);
+ gap:18px;
+ align-items:start;
+}
+.workspace-controls,.workspace-output{min-width:0}
+.workspace-output .result{min-height:260px;max-height:620px;overflow:auto}
+.workspace-output .output-heading{
+ display:flex;align-items:center;justify-content:space-between;gap:10px;
+ margin:0 0 12px;font-size:14px;font-weight:700;color:#e7eaff
+}
+.workspace-output .output-heading span{font-size:11px;font-weight:500;color:#91a0b8}
+.workspace-controls .actions{display:grid;grid-template-columns:1fr;gap:10px}
+.workspace-controls .actions .btn{width:100%}
+@media(min-width:760px){
+ .workspace-layout{grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);gap:22px}
+ .workspace-controls{position:relative}
+ .workspace-output .result{min-height:430px}
+ .workspace-controls textarea.field{min-height:160px}
+}
+
+
+@media(min-width:760px){
+ .work-body{display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);gap:14px 22px;align-items:start}
+ .work-body > *{min-width:0}
+ .work-body > label,.work-body > .field,.work-body > select,
+ .work-body > .prompt-chips,.work-body > .chips,.work-body > .actions{grid-column:1}
+ .work-body > .result,.work-body > .output,.work-body > .micro,
+ .work-body > .callout{grid-column:2}
+ .work-body > .result{grid-row:2 / span 5;min-height:430px;max-height:620px;overflow:auto}
+}
+
+
+.outputs-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}
+.outputs-grid .output-panel{min-width:0}
+.outputs-grid .output-head{gap:8px;align-items:flex-start}
+.outputs-grid .output-label strong{font-size:13px}
+.outputs-grid .output-label small{font-size:9px;letter-spacing:.7px}
+.outputs-grid .result{min-height:180px;white-space:pre-wrap;overflow-wrap:anywhere}
+.text-btn{border:0;background:transparent;color:#aaa1ff;font:inherit;font-size:11px;font-weight:700;padding:4px;cursor:pointer}
+.alternative-panel{background:linear-gradient(145deg,rgba(25,33,57,.98),rgba(11,19,32,.98))}
+@media(max-width:520px){.outputs-grid{grid-template-columns:1fr}.outputs-grid .result{min-height:120px}}
+
+</style>
+</head>
+<body>
+<header><div class="shell nav"><div class="brand"><div class="mark">Z</div><div>Zentra<em>AI</em></div></div><div class="pill">● EARLY ACCESS</div></div></header>
+<main class="shell">
+<section class="hero">
+<div class="kicker">Your all-in-one creator command center</div>
+<h1>Your ideas.<br><span class="shine">In motion.</span></h1>
+<p>A smarter workspace to plan, write, and shape content. One focused place to turn your next big idea into a practical first step.</p>
+<div class="hero-actions"><button class="btn primary" onclick="openTool('chat')">Start creating ↗</button><button class="btn" onclick="document.getElementById('toolSection').scrollIntoView({behavior:'smooth'})">Explore tools ↓</button></div>
+<div class="mini-stats"><span>✦ Mobile-first</span><span>◈ 8 creator tools</span><span>✓ Free prototype</span></div>
+</section>
+
+<section class="section" id="toolSection">
+<div class="section-head"><div><h2>Choose your next move</h2><p>Eight focused tools. One creator workspace.</p></div></div>
+<input id="search" class="search" type="search" placeholder="Search tools…" aria-label="Search tools" oninput="renderTools()">
+<div class="filters" id="filters">
+<button class="chip active" data-filter="all" onclick="setFilter('all')">All tools</button>
+<button class="chip" data-filter="create" onclick="setFilter('create')">Create</button>
+<button class="chip" data-filter="write" onclick="setFilter('write')">Writing</button>
+<button class="chip" data-filter="plan" onclick="setFilter('plan')">Plan</button>
+</div>
+<div class="grid" id="toolGrid"></div>
+</section>
+
+<section class="workspace" id="workspace">
+<div class="work-top"><div class="work-title"><div class="work-icon" id="workIcon">✦</div><div><h2 id="workTitle">Zentra Chat</h2><p id="workSubtitle">Think through your next move.</p></div></div><button class="small-btn" onclick="clearWork()">Reset</button></div>
+<div class="work-body">
+<label class="label" id="inputLabel" for="userInput">What would you like help with?</label>
+<textarea id="userInput" class="field" placeholder="Type your idea or task…"></textarea>
+<select id="tone" class="field select" aria-label="Output style">
+<option value="clear">Style: Clear and practical</option><option value="creative">Style: Creative</option><option value="professional">Style: Professional</option><option value="short">Style: Short and direct</option>
+</select>
+<div class="prompt-chips" id="promptChips"></div>
+<div class="runrow"><button class="btn primary" id="runBtn" onclick="runTool()">Generate starter</button><button class="btn" onclick="copyResult()">Copy result</button></div>
+<div class="outputs-grid">
+  <div class="output-panel">
+    <div class="output-head">
+      <div class="output-label"><span class="output-spark">✦</span><div><strong>Option 1 · Detailed</strong><small>YOUR MAIN RESPONSE</small></div></div>
+      <span class="output-status" id="outputStatus">Waiting</span>
+    </div>
+    <div class="result empty" id="result" aria-live="polite">Your detailed result will appear here.</div>
+    <div class="output-foot"><span>✧ ZentraAI Studio</span><button class="text-btn" onclick="copySpecific('result')">Copy option 1</button></div>
+  </div>
+  <div class="output-panel alternative-panel">
+    <div class="output-head">
+      <div class="output-label"><span class="output-spark">✧</span><div><strong>Option 2 · Quick</strong><small>ALTERNATIVE VERSION</small></div></div>
+      <span class="output-status">Quick take</span>
+    </div>
+    <div class="result empty" id="altResult" aria-live="polite">Your alternative option will appear here.</div>
+    <div class="output-foot"><span>✧ Quick alternative</span><button class="text-btn" onclick="copySpecific('altResult')">Copy option 2</button></div>
+  </div>
+</div>
+<div class="micro" id="micro">Local starter mode · No AI API connected yet.</div>
+<div class="callout"><strong>Honest note:</strong> this version runs local templates in your browser. It does not claim to generate real AI answers or videos. Real AI needs a securely connected provider; video generation may have separate limits or costs.</div>
+</div>
+</section>
+
+<section class="section">
+<div class="section-head"><div><h2>Designed to grow with you</h2><p>Start simple, improve from real user feedback.</p></div></div>
+<div class="bottom-grid">
+<div class="info"><h3>🔐 Secure foundations</h3><p>Secret API keys must stay server-side—not in public browser code.</p></div>
+<div class="info"><h3>⚡ Smooth on mobile</h3><p>Responsive layout, fast local interactions, search, filters, and reduced-motion support.</p></div>
+<div class="info"><h3>📈 Grow with purpose</h3><p>Connect real AI, test with users, then consider sustainable monetization.</p></div>
+</div>
+</section>
+</main>
+<footer><div class="shell footer-in"><span>© <span id="year"></span> ZentraAI · MVP</span><span>Build useful things. Keep improving.</span></div></footer>
+<div class="toast" id="toast">Copied</div>
+<script>
+const tools=[
+{id:'chat',icon:'✦',name:'AI Chat',category:'plan',desc:'Explore questions, ideas, and next steps.',sub:'Think through your next move.',label:'What would you like help with?',placeholder:'Ask a question or describe your goal…',button:'Create response starter',prompts:['Help me plan my week realistically.','Find risks in this business idea.','Explain a hard topic in simple steps.']},
+{id:'video',icon:'🎬',name:'AI Video Studio',category:'create',desc:'Build a video concept and scene plan.',sub:'Turn a concept into a production plan.',label:'Describe your video idea',placeholder:'Example: a 30-second futuristic ZentraAI promo…',button:'Build video plan',prompts:['Create a 30-second AI app promo.','Make a 3-scene animal story for kids.','Plan a faceless YouTube Short.']},
+{id:'writer',icon:'✍️',name:'AI Writer',category:'write',desc:'Shape a rough idea into a clear draft.',sub:'Get the structure before polishing the words.',label:'What do you want to write?',placeholder:'Describe your post, email, or article…',button:'Create writing outline',prompts:['Write a launch post for ZentraAI.','Draft a friendly client message.','Outline a short blog article about AI tools.']},
+{id:'image',icon:'🖼️',name:'Image Prompt',category:'create',desc:'Prepare a detailed prompt for an image tool.',sub:'Describe the image you want to create.',label:'What image do you want?',placeholder:'Example: a futuristic dark AI dashboard…',button:'Build image prompt',prompts:['Design a clean AI startup logo.','Make a cinematic thumbnail concept.','Create a cute 3D animal character.']},
+{id:'caption',icon:'💬',name:'Caption Maker',category:'write',desc:'Draft hooks, captions, and calls to action.',sub:'Give your post a clear angle.',label:'Describe your video or post',placeholder:'Topic, platform, and audience…',button:'Create caption ideas',prompts:['Caption for a video about AI tools.','Write a hook for a gaming Short.','Make a simple Instagram launch caption.']},
+{id:'voice',icon:'🎙️',name:'Voiceover Script',category:'create',desc:'Plan narration with timing and scene cues.',sub:'Prepare words for a voice or text-to-speech tool.',label:'Describe the voiceover',placeholder:'Topic, length, language, and tone…',button:'Build voiceover outline',prompts:['30-second Hindi-English AI promo.','45-second kids animal story narration.','60-second tutorial voiceover.']},
+{id:'ideas',icon:'💡',name:'Idea Studio',category:'plan',desc:'Find angles to test before investing time.',sub:'Choose ideas based on value, not hype.',label:'What do you need ideas for?',placeholder:'Describe your audience or goal…',button:'Create idea starter',prompts:['10 AI tools video ideas for beginners.','Find first users for a new website.','Brainstorm features for student creators.']},
+{id:'prompt',icon:'⌘',name:'Prompt Builder',category:'plan',desc:'Turn a vague request into a useful prompt.',sub:'Create a reusable instruction for another AI tool.',label:'What do you want an AI to do?',placeholder:'Describe the result you want…',button:'Build prompt',prompts:['Make a study plan for a difficult chapter.','Plan a 30-second promo video.','Design a mobile-first landing page.']}
+];
+let active='chat',filter='all';
+function renderTools(){const q=document.getElementById('search').value.toLowerCase().trim();const list=tools.filter(t=>(filter==='all'||t.category===filter)&&(`${t.name} ${t.desc} ${t.category}`).toLowerCase().includes(q));document.getElementById('toolGrid').innerHTML=list.map(t=>`<button class="tool" onclick="openTool('${t.id}')" aria-label="Open ${t.name}"><span class="ico">${t.icon}</span><h3>${t.name}</h3><p>${t.desc}</p><span class="open">OPEN TOOL ↗</span></button>`).join('')||'<p style="color:var(--muted);grid-column:1/-1">No tools match. Try another search.</p>';}
+function setFilter(f){filter=f;document.querySelectorAll('[data-filter]').forEach(b=>b.classList.toggle('active',b.dataset.filter===f));renderTools();}
+function openTool(id){active=id;const t=tools.find(x=>x.id===id);document.getElementById('workIcon').textContent=t.icon;document.getElementById('workTitle').textContent=t.name;document.getElementById('workSubtitle').textContent=t.sub;document.getElementById('inputLabel').textContent=t.label;document.getElementById('userInput').placeholder=t.placeholder;document.getElementById('runBtn').textContent=t.button;document.getElementById('promptChips').innerHTML=t.prompts.map(p=>`<button class="chip" onclick="usePrompt(${JSON.stringify(p).replace(/</g,'\\u003c')})">${esc(p)}</button>`).join('');document.getElementById('result').textContent='Your result will appear here.';document.getElementById('result').classList.add('empty');document.getElementById('micro').textContent='Local starter mode · No AI API connected yet.';document.getElementById('workspace').scrollIntoView({behavior:'smooth',block:'start'});}
+function esc(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function usePrompt(p){document.getElementById('userInput').value=p;document.getElementById('userInput').focus();}
+function runTool(){
+ const input=document.getElementById('userInput').value.trim();
+ const result=document.getElementById('result');
+ const micro=document.getElementById('micro');
+ if(!input){
+  result.textContent='Add your idea or question above, then generate a starter to see it here.'; document.getElementById('outputStatus').textContent='Waiting for input';
+  result.classList.remove('empty');
+  return;
+ }
+ const tone=document.getElementById('tone').value;
+ const style=tone==='creative'?'Creative':tone==='professional'?'Professional':tone==='short'?'Concise':'Clear and practical';
+ const cleanInput=input.replace(/\s+/g,' ').trim();
+ let answer='';
+
+ if(active==='chat'){
+  const low=cleanInput.toLowerCase();
+  if((low.includes('zentraai')||low.includes('zentra ai'))&&(low.includes('idea')||low.includes('business'))){
+   answer=`ZentraAI — 5 practical content ideas\n\n01  The 30-second creator toolkit\nShow how one creator can turn a single idea into a caption, a short script, and an image prompt.\n\n02  From blank page to first draft\nRecord a quick before-and-after demo: a rough idea becomes a structured draft using ZentraAI's writing tools.\n\n03  One idea, three formats\nTurn one topic into a YouTube Short outline, an Instagram caption, and a voiceover script.\n\n04  Build in public\nShare weekly progress: what improved, what broke, and what you're building next. Honest progress can build trust.\n\n05  Beginner creator challenge\nInvite users to plan and draft one short video in 10 minutes using the available tools.\n\nBEST FIRST TEST\nCreate idea 03 as a short demo. It shows the product's value quickly and can be made with free editing tools.\n\nREALITY CHECK\nThe current prototype uses local templates, so present these as planning tools—not as real AI generation—until a model is connected.\n\nNEXT STEP\nMake one demo, show it to five potential users, and ask which part they'd actually use.`;}
+  else{
+   answer=`YOUR REQUEST\n${cleanInput}\n\nA CLEAR WAY FORWARD\n\n01  Define the result\nWrite down what a successful answer or outcome should look like.\n\n02  Choose the next 3 actions\n• Start with the smallest useful step.\n• Check what information, time, or tools you need.\n• Finish one action before adding more tasks.\n\n03  Check the risk\nLook for hidden costs, missing information, and assumptions that need testing. Don't treat guesses as facts.\n\n04  Take action today\nChoose one step you can complete in the next 15 minutes.\n\nRESPONSE STYLE\n${style}\n\nNote: This is a structured local starter, not a live AI answer. Connect a real AI model for tailored reasoning and factual responses.`;}
+ }
+ else if(active==='prompt'){
+  answer=`READY-TO-USE PROMPT\n\nROLE\nAct as a skilled ${tone==='professional'?'professional consultant':'creative and practical assistant'}.\n\nTASK\n${cleanInput}\n\nHOW TO WORK\n1. Identify the desired outcome and audience.\n2. Ask a brief clarifying question only if essential information is missing.\n3. Give specific, actionable steps instead of generic advice.\n4. State assumptions and flag risks; never invent facts or results.\n\nOUTPUT FORMAT\n• Short recommendation\n• Step-by-step plan\n• Important risks or limitations\n• One clear next action\n\nTONE\n${style}\n\nCopy this prompt into an AI tool and adjust the context to fit your situation.`;}
+ else if(active==='video'){
+  answer=`VIDEO CONCEPT\n${cleanInput}\n\nFORMAT\n30-second vertical video · 9:16 · ${style.toLowerCase()} tone\n\nSCENE 01  |  0–3 SEC — THE HOOK\nVisual: Open on the most surprising or visually clear moment.\nOn-screen text: One short line that makes the viewer curious.\nAudio: A quick sound cue or direct opening line.\n\nSCENE 02  |  3–10 SEC — SET THE SCENE\nVisual: Show the subject, problem, or starting point in 2–3 quick shots.\nVoiceover: Explain why the viewer should care.\n\nSCENE 03  |  10–23 SEC — THE PAYOFF\nVisual: Show the main action or transformation. Keep each shot focused on one idea.\nVoiceover: Deliver the key point with simple, natural language.\n\nSCENE 04  |  23–30 SEC — THE FINISH\nVisual: Show the result and end on a clean frame.\nVoiceover: Summarize the takeaway and add one relevant call to action.\n\nEDITING NOTES\nUse readable captions, clear audio, and cuts that match the beat. Keep important text away from screen edges.\n\nNEXT STEP\nCreate each scene with your video tool, then edit the clips together. This is a production plan, not a rendered video.`;}
+ else if(active==='image'){
+  answer=`IMAGE GENERATION PROMPT\n\nCreate a high-quality image of: ${cleanInput}\n\nART DIRECTION\n• Composition: one clear focal subject, balanced framing, uncluttered background.\n• Lighting: cinematic soft light with controlled highlights and natural shadows.\n• Detail: coherent anatomy and perspective, crisp subject, intentional textures.\n• Color: a consistent palette that supports the mood.\n• Style: ${tone==='creative'?'bold, imaginative, visually distinctive':tone==='professional'?'polished commercial photography, premium and trustworthy':'modern, refined, cinematic'}.\n\nAVOID\nWatermarks, random lettering, duplicate subjects, distorted details, clutter, and unnecessary objects.\n\nOPTIONAL SETTINGS\nAspect ratio: 9:16 for Shorts/Reels, 1:1 for square posts, 16:9 for thumbnails or banners.\n\nTip: Add exact colors, camera angle, and required text if they matter. Results depend on the image generator you use.`;}
+ else if(active==='writer'){
+  answer=`DRAFT BRIEF\nTopic: ${cleanInput}\nTone: ${style}\n\nDRAFT STRUCTURE\n\nOPENING\nStart with the reader's problem, a clear promise, or a specific observation. Avoid exaggerated claims.\n\nMAIN MESSAGE\nExplain the central idea in plain language. Keep each paragraph focused on one point.\n\nUSEFUL DETAIL\nAdd a real example, proof, or practical step. Verify names, dates, statistics, and other factual claims.\n\nCLOSE\nEnd with a natural conclusion and one relevant next action.\n\nBEFORE PUBLISHING\nCheck accuracy, remove repetition, and make sure the draft sounds like you. This is a writing framework; add verified details before using it as finished copy.`;}
+ else if(active==='caption'){
+  answer=`CAPTION OPTIONS\nTopic: ${cleanInput}\n\n01  CURIOUS\nHere's one thing about ${cleanInput} worth paying attention to.\n\n02  PRACTICAL\nTrying ${cleanInput}? Start simple, focus on one improvement, and learn as you go.\n\n03  CONVERSATIONAL\nWhat has your experience with ${cleanInput} been? Share your take below.\n\nSIMPLE CAPTION FORMULA\nHook → one useful takeaway → relevant call to action.\n\nHASHTAG TIP\nUse 3–5 specific, relevant hashtags rather than a long list of unrelated tags.\n\nReview each caption so it accurately matches your actual video or post. These are editable starters, not performance guarantees.`;}
+ else if(active==='voice'){
+  answer=`30-SECOND VOICEOVER PLAN\nTopic: ${cleanInput}\nDelivery: ${style}\n\n0–3 SEC  |  HOOK\nOpen with a clear question, surprising detail, or promise that the video can deliver.\n\n3–8 SEC  |  CONTEXT\nExplain what the viewer is seeing and why it matters.\n\n8–22 SEC  |  MAIN POINT\nGive one main idea and support it with a concrete example. Keep sentences short enough to speak naturally.\n\n22–27 SEC  |  TAKEAWAY\nRepeat the most useful point in a memorable way.\n\n27–30 SEC  |  CLOSE\nFinish with one natural call to action, if appropriate.\n\nRECORDING TIP\nRead aloud once, remove awkward phrases, and leave a little space for visuals. This is a timing outline, not a finished narration.`;}
+ else if(active==='ideas'){
+  answer=`IDEA BOARD\nGoal: ${cleanInput}\n\n01  QUICK TUTORIAL\nTeach one useful skill in three simple steps.\n\n02  BEFORE / AFTER\nShow the starting point, the process, and the real result.\n\n03  COMMON MISTAKES\nExplain three mistakes beginners can avoid. Use accurate examples.\n\n04  7-DAY CHALLENGE\nTest one small change for a week and report what actually happened.\n\n05  HONEST COMPARISON\nCompare two approaches by cost, effort, and outcome—without pretending one wins for everyone.\n\n06  REUSABLE TEMPLATE\nGive your audience a checklist, script, or prompt they can adapt.\n\nBEST FIRST MOVE\nChoose the idea that is easiest to make with the resources you already have. Test it with a small audience before investing more time or money.`;}
+ else{
+  answer=`VOICE / SCRIPT STARTER\nTopic: ${cleanInput}\nTone: ${style}\n\nOPEN\nIntroduce the topic in one natural sentence.\n\nEXPLAIN\nGive the main point using simple words and one concrete example.\n\nMAKE IT VISUAL\nMatch each sentence to a clear shot, screen recording, or relevant image.\n\nCLOSE\nEnd with the key takeaway. Add a call to action only if it fits the content.\n\nPRODUCTION CHECK\nRead aloud, check the timing, and remove any line that sounds unnatural. Verify factual claims before publishing.`;}
+ result.textContent=answer.trim();
+ result.classList.remove('empty');
+ const alt=document.getElementById('altResult');
+ const compact=answer.split(/\n\n+/).filter(Boolean);
+ let shortAnswer='';
+ if(active==='video'){
+  shortAnswer=`QUICK VIDEO PLAN\n\nHook: Start with one strong visual or question.\n\nMain point: ${cleanInput}\n\nPayoff: Show the result or key takeaway.\n\nClose: End with one clear next step.\n\nFormat: 9:16 vertical · Keep captions readable.`;
+ }else if(active==='caption'){
+  shortAnswer=`QUICK CAPTION\n\n${cleanInput}\n\nShare one useful takeaway, then invite a relevant comment.\n\nKeep it accurate to the post and use only a few relevant hashtags.`;
+ }else if(active==='image'){
+  shortAnswer=`QUICK IMAGE PROMPT\n\nCreate a polished, high-quality image of ${cleanInput}. Use one clear focal subject, balanced composition, cinematic lighting, coherent details, and a consistent color palette. Avoid clutter, distorted details, watermarks, and random text.`;
+ }else if(active==='chat'){
+  shortAnswer=`QUICK TAKE\n\nGoal: ${cleanInput}\n\n1. Define the result you want.\n2. Pick one small next action.\n3. Check cost, time, and risk.\n4. Test the idea before investing more.\n\nThis is a local starter, not a live AI answer.`;
+ }else{
+  shortAnswer=`QUICK VERSION\n\nTopic: ${cleanInput}\n\n• Start with one clear goal.\n• Explain the main idea simply.\n• Add one concrete example.\n• Finish with one useful next step.\n\nReview details and verify facts before publishing.`;
+ }
+ alt.textContent=shortAnswer;
+ alt.classList.remove('empty');
+ const status=document.getElementById('outputStatus');
+ if(status) status.textContent='Ready';
+ document.getElementById('outputStatus').textContent='Starter ready';
+ micro.textContent='Locally generated starter · Clean, copy-ready formatting · No live AI model connected yet.';
+}async function copySpecific(id){
+ const el=document.getElementById(id);
+ const text=el?el.textContent.trim():'';
+ if(!text || text.includes('will appear here')) return;
+ try{await navigator.clipboard.writeText(text);showToast('Copied!');}
+ catch(e){const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();showToast('Copied!');}
+}
+async function copyResult(){const text=document.getElementById('result').textContent;if(!text||text==='Your result will appear here.'){toast('Nothing to copy yet');return;}try{await navigator.clipboard.writeText(text);toast('Copied to clipboard ✓')}catch(e){const area=document.createElement('textarea');area.value=text;document.body.appendChild(area);area.select();try{document.execCommand('copy');toast('Copied ✓')}catch(_){toast('Select and copy the result manually')}area.remove();}}
+function clearWork(){document.getElementById('userInput').value='';document.getElementById('result').textContent='Your result will appear here.';document.getElementById('result').classList.add('empty');document.getElementById('micro').textContent='Local starter mode · No AI API connected yet.';}
+let toastTimer;function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),1800);}
+document.getElementById('year').textContent=new Date().getFullYear();renderTools();openTool('chat');
+</script>
+</body>
+</html>
